@@ -7,7 +7,7 @@ namespace _Main.Scripts.Movement_Character_Controller
     public class Jump : MonoBehaviour
     {
         private Gravity _gravityScript;
-        private CharacterController _characterController;
+        private UnityEngine.CharacterController _characterController;
         private InputActionAsset _inputAsset;
         private InputAction _jumpAction;
 
@@ -18,7 +18,7 @@ namespace _Main.Scripts.Movement_Character_Controller
         }
         void Start()
         {
-            _characterController = GetComponent<CharacterController>();
+            _characterController = GetComponent<UnityEngine.CharacterController>();
             _gravityScript = GetComponent<Gravity>();
         }
         void OnEnable()

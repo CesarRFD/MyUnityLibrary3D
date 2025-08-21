@@ -4,14 +4,14 @@ namespace _Main.Scripts.Movement_Character_Controller
 {
     public class test : MonoBehaviour
     {
-        private CharacterController controller;
+        private UnityEngine.CharacterController controller;
     
         private const float GravityValue = -9.81f;
 
         private float _verticalVelocity = 0f;
         void Start()
         {
-            controller = GetComponent<CharacterController>();
+            controller = GetComponent<UnityEngine.CharacterController>();
         }
 
         // Update is called once per frame

@@ -38,9 +38,20 @@ namespace _Main.Scripts.Movement_Character_Controller
 
             // Aplicar gravedad
             _verticalVelocity += GravityValue * Time.deltaTime;
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            // Mover el CharacterController verticalmente
-            _controller.Move(new Vector3(_horizontalInt * velocity, _verticalVelocity, _verticalInt * velocity) * Time.deltaTime);
+            // Calculamos el movimiento local en base al input
+            Vector3 localMovement = new Vector3(_horizontalInt, 0, _verticalInt).normalized * velocity;
+
+            // Convertimos el movimiento local a dirección global según la rotación del personaje
+            Vector3 worldMovement = transform.TransformDirection(localMovement);
+
+            // Movemos al personaje considerando la rotación + gravedad
+            _controller.Move((worldMovement + Vector3.up * _verticalVelocity) * Time.deltaTime);
+            
+            /*// Mover el CharacterController verticalmente
+            _controller.Move(new Vector3(_horizontalInt * velocity, _verticalVelocity, _verticalInt * velocity) * Time.deltaTime);*/
         }
 
         void OnEnable()

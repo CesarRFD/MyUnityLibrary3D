@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Main.Scripts.Camera;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace KinematicCharacterController.Examples
 {
     public class ExampleCharacterCamera : MonoBehaviour
     {
-        [Header("Framing")]
-        public Camera Camera;
+        [FormerlySerializedAs("Camera")] [Header("Framing")]
+        public CameraMove cameraMove;
         public Vector2 FollowPointFraming = new Vector2(0f, 0f);
         public float FollowingSharpness = 10000f;
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 namespace _Main.Scripts.Movement_Character_Controller
 {
@@ -7,9 +8,12 @@ namespace _Main.Scripts.Movement_Character_Controller
     public class Jump : MonoBehaviour
     {
         private Gravity _gravityScript;
-        private UnityEngine.CharacterController _characterController;
+        private CharacterController _characterController;
+        private PlayerController _playerController;
         private InputActionAsset _inputAsset;
         private InputAction _jumpAction;
+
+        public float tempJumpTime = 0.20f;
 
         void Awake()
         {
@@ -18,8 +22,9 @@ namespace _Main.Scripts.Movement_Character_Controller
         }
         void Start()
         {
-            _characterController = GetComponent<UnityEngine.CharacterController>();
+            _characterController = GetComponent<CharacterController>();
             _gravityScript = GetComponent<Gravity>();
+            _playerController = GetComponent<PlayerController>();
         }
         void OnEnable()
         {
@@ -35,8 +40,15 @@ namespace _Main.Scripts.Movement_Character_Controller
         {
             if (_characterController.isGrounded)
             {
-                _gravityScript.Jump();
+                StartCoroutine(StartJump(tempJumpTime));
+                _playerController.JumpAnim();
             }
+        }
+
+        IEnumerator StartJump(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _gravityScript.Jump();
         }
     }
 }

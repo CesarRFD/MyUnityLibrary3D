@@ -10,10 +10,11 @@ namespace _Main.Scripts.Movement_Character_Controller
         private InputAction _run;
         private int _horizontalInt = 0;
         private int _verticalInt = 0;
-        private int _runInt = 0;
+        private int _runState = 0;
         [SerializeField] private float velocity = 1;
         
-        private UnityEngine.CharacterController _controller;
+        private CharacterController _controller;
+        private PlayerController _playerController;
         private const float GravityValue = -9.81f;
 
         private float _verticalVelocity = 0f;
@@ -33,6 +34,9 @@ namespace _Main.Scripts.Movement_Character_Controller
         {
             // Reiniciar velocidad si estamos en el suelo
             if (_controller.isGrounded && _verticalVelocity < 0) _verticalVelocity = -1f;
+            
+            
+            
             if (!_move.IsPressed() && _controller.isGrounded) _horizontalInt = 0;
             if (!_move.IsPressed() && _controller.isGrounded) _verticalInt = 0;
 
@@ -106,20 +110,17 @@ namespace _Main.Scripts.Movement_Character_Controller
             if (_controller.isGrounded)
             {
                 velocity += 3f;
-                _runInt = 1;
+                _runState = 1;
             }
         }
         private void OnRunUp(InputAction.CallbackContext context)
         {
-            if (_controller.isGrounded)
-            {
-                velocity -= 3f;
-                _runInt = 0;
-            }
+            velocity -= 3f;
+            _runState = 0;
         }
         public Vector3 GetMovement()
         {
-            return new Vector3(_horizontalInt, _verticalInt, _runInt);
+            return new Vector3(_horizontalInt, _verticalInt, _runState);
         }
     }
 }

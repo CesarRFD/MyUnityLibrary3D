@@ -45,7 +45,7 @@ namespace _Main.Scripts.Camera
         private void LateUpdate()
         {
             if (!target) return;
-
+            smoothTime = 0.25f;
             // 1. Obtener movimiento del mouse / stick derecho
             Vector2 lookInput = _look.ReadValue<Vector2>();
 
@@ -54,11 +54,13 @@ namespace _Main.Scripts.Camera
             {
                 _yaw += lookInput.x * sensitivity;
                 _pitch -= lookInput.y * sensitivity;
+                smoothTime = 0.1f;
             }
             else
             {
                 _yaw = characterController.transform.rotation.eulerAngles.y;
                 _pitch -= lookInput.y * sensitivity;
+                smoothTime = 0.25f;
             }
 
             // 3. Limitar la rotación vertical
